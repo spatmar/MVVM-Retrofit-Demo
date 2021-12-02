@@ -3,10 +3,19 @@ package com.spatmar.mvvmretrofitdemo.model;
 import java.util.ArrayList;
 import java.util.List;
 import android.os.Parcelable;
+import android.widget.ImageView;
+
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.library.baseAdapters.BR;
+
+import com.bumptech.glide.Glide;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.spatmar.mvvmretrofitdemo.R;
 
-public class Result implements Parcelable
+public class Result extends BaseObservable implements Parcelable
 {
 
     @SerializedName("adult")
@@ -36,6 +45,17 @@ public class Result implements Parcelable
     @SerializedName("poster_path")
     @Expose
     private String posterPath;
+
+    @BindingAdapter({"posterPath"})
+    public static void loadImage(ImageView imageView, String imageUrl) {
+
+        String imagePath = "https://image.tmdb.org/t/p/w500/" + imageUrl;
+        Glide.with(imageView.getContext())
+                .load(imagePath)
+                .placeholder(R.drawable.progress_circle)
+                .into(imageView);
+    }
+
     @SerializedName("release_date")
     @Expose
     private String releaseDate;
@@ -88,6 +108,7 @@ public class Result implements Parcelable
     public Result() {
     }
 
+    @Bindable
     public Boolean getAdult() {
         return adult;
     }
@@ -96,6 +117,7 @@ public class Result implements Parcelable
         this.adult = adult;
     }
 
+    @Bindable
     public String getBackdropPath() {
         return backdropPath;
     }
@@ -104,6 +126,7 @@ public class Result implements Parcelable
         this.backdropPath = backdropPath;
     }
 
+    @Bindable
     public List<Integer> getGenreIds() {
         return genreIds;
     }
@@ -112,6 +135,7 @@ public class Result implements Parcelable
         this.genreIds = genreIds;
     }
 
+    @Bindable
     public Integer getId() {
         return id;
     }
@@ -120,6 +144,7 @@ public class Result implements Parcelable
         this.id = id;
     }
 
+    @Bindable
     public String getOriginalLanguage() {
         return originalLanguage;
     }
@@ -128,76 +153,94 @@ public class Result implements Parcelable
         this.originalLanguage = originalLanguage;
     }
 
+    @Bindable
     public String getOriginalTitle() {
         return originalTitle;
     }
 
     public void setOriginalTitle(String originalTitle) {
         this.originalTitle = originalTitle;
+        notifyPropertyChanged(BR.originalTitle);
     }
 
+    @Bindable
     public String getOverview() {
         return overview;
     }
 
     public void setOverview(String overview) {
         this.overview = overview;
+        notifyPropertyChanged(BR.overview);
     }
 
+    @Bindable
     public Double getPopularity() {
         return popularity;
     }
 
     public void setPopularity(Double popularity) {
         this.popularity = popularity;
+        notifyPropertyChanged(BR.popularity);
     }
 
+    @Bindable
     public String getPosterPath() {
         return posterPath;
     }
 
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
+        notifyPropertyChanged(BR.posterPath);
     }
 
+    @Bindable
     public String getReleaseDate() {
         return releaseDate;
     }
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
+        notifyPropertyChanged(BR.releaseDate);
     }
 
+    @Bindable
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+        notifyPropertyChanged(BR.title);
     }
 
+    @Bindable
     public Boolean getVideo() {
         return video;
     }
 
     public void setVideo(Boolean video) {
         this.video = video;
+        notifyPropertyChanged(BR.video);
     }
 
+    @Bindable
     public Double getVoteAverage() {
         return voteAverage;
     }
 
     public void setVoteAverage(Double voteAverage) {
         this.voteAverage = voteAverage;
+        notifyPropertyChanged(BR.voteAverage);
     }
 
+    @Bindable
     public Integer getVoteCount() {
         return voteCount;
     }
 
     public void setVoteCount(Integer voteCount) {
         this.voteCount = voteCount;
+        notifyPropertyChanged(BR.voteCount);
     }
 
     public void writeToParcel(android.os.Parcel dest, int flags) {
